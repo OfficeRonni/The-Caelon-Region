@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Caelon Region – Cobblemon Server</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Nunito:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  color-scheme:dark;
+  --bg:#0A0A0A; --ink:#FFFFFF; --muted:#A8A8A8; --card:#141414; --line:#2B2B2B;
+  --red:#E3350D; --red-dark:#B82608; --grass:#0A0A0A; --sky:#0A0A0A; --shadow:#FFFFFF;
+  box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Nunito",system-ui,sans-serif;font-weight:500;line-height:1.6;font-size:17px}
+h1,h2,h3{font-family:"Bagel Fat One","Nunito",system-ui,sans-serif;font-weight:400;line-height:1.1;margin:0}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--red);outline-offset:3px}
+.wrap{max-width:1040px;margin:0 auto;padding:0 20px}
+
+nav{display:flex;justify-content:space-between;align-items:center;padding:18px 0;gap:12px;flex-wrap:wrap}
+.logo{font-family:"Bagel Fat One",sans-serif;font-size:1.3rem;text-decoration:none}
+nav .links{display:flex;gap:18px;font-weight:800;font-size:.95rem}
+nav .links a{text-decoration:none;color:var(--muted)}
+nav .links a:hover{color:var(--red)}
+
+.hero{background:radial-gradient(ellipse at 75% 45%,#3d0e05 0,#0A0A0A 62%);border-bottom:4px solid var(--red);border-radius:0 0 40px 40px;padding:36px 0 0;overflow:hidden}
+.hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:30px;align-items:center}
+.hero h1{font-size:clamp(2.4rem,6vw,4.2rem)}
+.hero p{font-size:1.15rem;max-width:30ch;margin:14px 0 0}
+.ball-wrap{display:flex;justify-content:center;padding-bottom:36px}
+.ball{position:relative;width:min(320px,80vw);aspect-ratio:1;border-radius:50%;border:8px solid var(--shadow);overflow:hidden;
+  background:linear-gradient(var(--red) 0 50%,#fff 50%);box-shadow:0 0 70px rgba(227,53,13,.55);animation:wobble 1.6s ease-in-out 1s 2}
+.ball::before{content:"";position:absolute;left:0;right:0;top:calc(50% - 8px);height:16px;background:#0A0A0A}
+.ball button{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:36%;aspect-ratio:1;border-radius:50%;
+  border:8px solid #0A0A0A;background:#fff;cursor:pointer;font-family:"Bagel Fat One",sans-serif;font-size:1rem;color:#0A0A0A;
+  transition:transform .15s,background .15s}
+.ball button:hover{transform:translate(-50%,-50%) scale(1.08)}
+.ball button.done{background:var(--red);color:#fff}
+@keyframes wobble{0%,100%{transform:rotate(0)}25%{transform:rotate(-8deg)}75%{transform:rotate(8deg)}}
+
+.ip{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:22px}
+.ip code{background:var(--card);border:3px solid var(--shadow);border-radius:14px;padding:10px 16px;font-weight:800;font-size:1.1rem;font-family:"Nunito",monospace}
+.btn{display:inline-block;background:var(--red);color:#fff;border:3px solid var(--shadow);border-radius:14px;padding:10px 18px;font-weight:800;font-size:1rem;
+  box-shadow:0 5px 0 var(--shadow);cursor:pointer;text-decoration:none;font-family:inherit}
+.btn:hover{background:var(--red-dark)}
+.btn:active{transform:translateY(4px);box-shadow:0 1px 0 var(--shadow)}
+
+section{padding:64px 0 8px}
+section h2{font-size:clamp(1.8rem,4vw,2.5rem);margin-bottom:8px}
+.sub{color:var(--muted);margin:0 0 26px;max-width:52ch}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px}
+.card{background:var(--card);border:3px solid var(--line);border-radius:18px;padding:20px;box-shadow:0 5px 0 var(--red)}
+.card h3{font-size:1.25rem;margin-bottom:6px}
+.card p{margin:0;color:var(--muted)}
+.card .em{font-size:2rem;display:block;margin-bottom:6px}
+
+ol.rules{list-style:none;margin:0;padding:0;display:grid;gap:12px;counter-reset:r}
+ol.rules li{counter-increment:r;background:var(--card);border-left:10px solid var(--red);border-radius:12px;padding:14px 18px 14px 18px;border-top:2px solid var(--line);border-right:2px solid var(--line);border-bottom:2px solid var(--line)}
+ol.rules b{display:block;font-weight:800}
+ol.rules span{color:var(--muted)}
+ol.rules{max-height:0;overflow:hidden;opacity:0;transition:max-height .35s,opacity .3s}
+ol.rules.open{max-height:1400px;opacity:1}
+.fold{all:unset;cursor:pointer;display:flex;align-items:center;gap:14px;font-family:"Bagel Fat One","Nunito",sans-serif;line-height:1.1}
+.fold i{font-style:normal;display:grid;place-items:center;width:1.2em;height:1.2em;border-radius:50%;background:var(--red);color:#fff;font-size:.8em;transition:transform .25s}
+.fold[aria-expanded="true"] i{transform:rotate(45deg)}
+.fold:focus-visible{outline:3px solid var(--red);outline-offset:6px;border-radius:8px}
+
+.join{margin:64px 0 40px;background:var(--red);color:#fff;border:4px solid var(--shadow);border-radius:28px;padding:36px 28px;text-align:center;box-shadow:0 8px 0 var(--shadow)}
+.join h2{margin-bottom:8px}
+.join p{margin:0 auto 20px;max-width:44ch}
+.join .btn{background:#fff;color:#0A0A0A;border-color:#0A0A0A;box-shadow:0 5px 0 #0A0A0A}
+.join .btn:hover{background:#ffe9e3}
+footer{text-align:center;color:var(--muted);padding:10px 0 40px;font-size:.9rem}
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translate(-50%,30px);opacity:0;background:#fff;color:#0A0A0A;padding:10px 18px;border-radius:999px;font-weight:800;transition:.25s;pointer-events:none}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
+@media (max-width:760px){.hero .wrap{grid-template-columns:1fr}.hero p{max-width:none}}
+@media (prefers-reduced-motion:reduce){.ball{animation:none}html{scroll-behavior:auto}*{transition:none!important}}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="wrap" style="display:block;padding-bottom:0">
+    <nav>
+      <a class="logo" href="#top">The Caelon Region</a>
+      <div class="links"><a href="#features">Features</a><a href="#rules">Rules</a><a href="#join">Join</a></div>
+    </nav>
+  </div>
+  <div class="wrap" id="top">
+    <div>
+      <h1>Your Cobblemon adventure starts here</h1>
+      <p>A cozy survival server where you catch, raise, and trade Pokémon with friends.</p>
+      <div class="ip">
+        <code id="ip">185.206.150.229:25596</code>
+        <button class="btn" id="copy" type="button">Copy IP</button>
+      </div>
+    </div>
+    <div class="ball-wrap">
+      <div class="ball" aria-hidden="false">
+        <button type="button" id="ballBtn" aria-label="Copy server IP">Tap</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <section id="features">
+    <h2>What you'll find</h2>
+    <p class="sub">Everything you need for a slow, friendly Pokémon life in Minecraft.</p>
+    <div class="grid">
+      <div class="card"><span class="em">🌱</span><h3>Caelon spawn</h3><p>Every trainer starts in a cozy hub with a Pokémon Center, shops, and a starter guide.</p></div>
+      <div class="card"><span class="em">🗺️</span><h3>Custom regions</h3><p>Explore hand-built routes, caves, and coastlines, each with its own wild Pokémon.</p></div>
+      <div class="card"><span class="em">🤝</span><h3>Trading & battles</h3><p>Trade with friends and battle at the community arena any time.</p></div>
+      <div class="card"><span class="em">🏡</span><h3>Safe building</h3><p>Claim land, protect your base, and keep your team safe while you explore.</p></div>
+    </div>
+  </section>
+
+  <section id="rules">
+    <h2><button class="fold" id="foldRules" type="button" aria-expanded="false" aria-controls="rulesList">Server rules <i>+</i></button></h2>
+    <p class="sub">Keep it kind and everyone gets to enjoy the adventure.</p>
+    <ol class="rules" id="rulesList">
+      <li><b>Be kind and respectful</b><span>No harassment, hate speech, or toxic behavior in chat or in game.</span></li>
+      <li><b>No griefing or stealing</b><span>Don’t break, burn, or take from other players’ builds, chests, or claims.</span></li>
+      <li><b>No cheating or exploits</b><span>Hacked clients, duping, and glitch abuse lead to a ban.</span></li>
+      <li><b>Play fair with Pokémon</b><span>Don’t kill, steal, or trap other players’ Pokémon.</span></li>
+      <li><b>Battle by consent</b><span>Only battle trainers who say yes. No ambushing people mid-adventure.</span></li>
+      <li><b>Trade honestly</b><span>No scamming. Both players should agree before any trade is made.</span></li>
+      <li><b>Keep chat friendly</b><span>No spam, advertising, or random links.</span></li>
+      <li><b>Listen to staff</b><span>If a moderator asks you to stop something, please stop.</span></li>
+    </ol>
+  </section>
+
+  <section class="join" id="join" style="padding:36px 28px">
+    <h2>Ready to catch 'em all?</h2>
+    <p>Add the server in Minecraft with Cobblemon installed, then jump in and say hi on Discord.</p>
+    <a class="btn" href="https://discord.gg/aACuD3BukW" target="_blank" rel="noopener">Join our Discord</a>
+  </section>
+</main>
+<footer>The Caelon Region is not affiliated with Mojang, Nintendo, or The Pokémon Company.</footer>
+<div class="toast" id="toast" role="status">IP copied!</div>
+
+<script>
+(function(){
+  var ip=document.getElementById('ip').textContent, toast=document.getElementById('toast'), ball=document.getElementById('ballBtn');
+  function copy(){
+    function ok(){
+      toast.classList.add('show'); ball.classList.add('done'); ball.textContent='Got it';
+      setTimeout(function(){toast.classList.remove('show');ball.classList.remove('done');ball.textContent='Tap';},1800);
+    }
+    try{
+      if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(ip).then(ok,fallback);}else{fallback();}
+    }catch(e){fallback();}
+    function fallback(){
+      var t=document.createElement('textarea');t.value=ip;document.body.appendChild(t);t.select();
+      try{document.execCommand('copy');}catch(e){}
+      document.body.removeChild(t);ok();
+    }
+  }
+  var fr=document.getElementById('foldRules'),rl=document.getElementById('rulesList');
+  fr.addEventListener('click',function(){var o=rl.classList.toggle('open');fr.setAttribute('aria-expanded',o?'true':'false');});
+  document.getElementById('copy').addEventListener('click',copy);
+  ball.addEventListener('click',copy);
+})();
+</script>
+</body>
+</html>
